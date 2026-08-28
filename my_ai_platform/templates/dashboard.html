@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Studio Pro | استوديو الأدوات والذكاء</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Readex+Pro:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Readex Pro', sans-serif; }
+        body {
+            background-color: #030712;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(217, 70, 239, 0.15) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(16, 185, 129, 0.08) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        }
+        .glow-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glow-card:hover {
+            border-color: rgba(6, 182, 212, 0.5);
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 12px 35px -10px rgba(6, 182, 212, 0.25);
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
+        }
+        .btn-gradient:hover {
+            opacity: 0.95;
+            box-shadow: 0 6px 25px rgba(6, 182, 212, 0.45);
+        }
+        .badge-glow {
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+        }
+    </style>
+</head>
+<body class="text-gray-100 min-h-screen pb-20">
+
+    <!-- Header Navigation -->
+    <nav class="border-b border-gray-800/80 bg-gray-950/80 backdrop-blur-xl px-6 py-4 flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 to-fuchsia-600 flex items-center justify-center font-bold text-white shadow-lg shadow-cyan-500/20">
+                N
+            </div>
+            <div>
+                <h1 class="text-xl font-bold tracking-tight text-white">Nexus Studio <span class="text-xs px-2 py-0.5 rounded-md bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 font-mono">v3.0 Ultra</span></h1>
+                <p class="text-[10px] text-gray-400">البيئة المتقدمة للمستندات والوسائط</p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <div class="hidden md:flex items-center gap-2 bg-gray-900/80 px-3 py-1.5 rounded-full border border-gray-800">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="text-xs text-gray-300">حقوق العلامة: <b class="text-cyan-400 font-mono">@{{ watermark }}</b></span>
+            </div>
+
+            <div class="flex items-center gap-3 pl-2 border-r border-gray-800">
+                <div class="text-right">
+                    <p class="text-xs font-bold text-gray-200">{{ username }}</p>
+                    <p class="text-[10px] text-cyan-400 font-mono">عملياتك: {{ total_actions }}</p>
+                </div>
+                <a href="/logout" class="px-3.5 py-2 bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500 hover:text-white rounded-xl text-xs font-medium transition duration-200">
+                    خروج
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-6 mt-10 space-y-10">
+
+        <!-- Hero Title -->
+        <div class="text-center space-y-3">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-gradient-to-r from-cyan-500/10 to-fuchsia-500/10 border border-cyan-500/20 text-cyan-300 text-xs font-semibold badge-glow">
+                ⚡ جميع أدوات المعالجة والتعديل بين يديك
+            </span>
+            <h2 class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-gray-400">
+                مركز التحكم والخدمات الشاملة
+            </h2>
+            <p class="text-sm text-gray-400 max-w-2xl mx-auto">
+                قم بمعالجة ملفات PDF، تعديل الصور، توليد أكواد QR، وتصغير الروابط بسرعة وكفاءة فائقة.
+            </p>
+        </div>
+
+        <!-- Services Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <!-- Card 1: PDF Master -->
+            <div onclick="openService('pdf')" class="glow-card p-6 rounded-3xl cursor-pointer relative overflow-hidden group">
+                <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+                    📄
+                </div>
+                <h3 class="text-lg font-bold text-white group-hover:text-cyan-400 transition">أدوات PDF المتقدمة</h3>
+                <p class="text-xs text-gray-400 mt-2 leading-relaxed">تحويل، دمج عدة ملفات، تقسيم صفحات، وحماية المستندات برقم سرى.</p>
+                <div class="mt-4 flex items-center text-xs font-bold text-cyan-400 group-hover:translate-x-[-4px] transition">
+                    افتح الأدوات ←
+                </div>
+            </div>
+
+            <!-- Card 2: Image Master -->
+            <div onclick="openService('image')" class="glow-card p-6 rounded-3xl cursor-pointer relative overflow-hidden group">
+                <div class="w-12 h-12 rounded-2xl bg-fuchsia-500/10 border border-fuchsia-500/30 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+                    🎨
+                </div>
+                <h3 class="text-lg font-bold text-white group-hover:text-fuchsia-400 transition">استوديو الصور</h3>
+                <p class="text-xs text-gray-400 mt-2 leading-relaxed">ضغط الصور، تحويل الصيغ (PNG, JPG, WEBP)، وإضافة ماركة الحقوق.</p>
+                <div class="mt-4 flex items-center text-xs font-bold text-fuchsia-400 group-hover:translate-x-[-4px] transition">
+                    افتح الأدوات ←
+                </div>
+            </div>
+
+            <!-- Card 3: QR Studio -->
+            <div onclick="openService('qr')" class="glow-card p-6 rounded-3xl cursor-pointer relative overflow-hidden group">
+                <span class="absolute top-3 left-3 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold text-[10px] px-2.5 py-0.5 rounded-full">مُحدث ✨</span>
+                <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+                    📱
+                </div>
+                <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition">صانع أكواد QR</h3>
+                <p class="text-xs text-gray-400 mt-2 leading-relaxed">توليد أكواد QR فائقة الجودة للروابط والنصوص والتواصل بسرعة.</p>
+                <div class="mt-4 flex items-center text-xs font-bold text-emerald-400 group-hover:translate-x-[-4px] transition">
+                    افتح الأدوات ←
+                </div>
+            </div>
+
+            <!-- Card 4: Inspection & Security -->
+            <div onclick="openService('tools')" class="glow-card p-6 rounded-3xl cursor-pointer relative overflow-hidden group">
+                <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+                    🛠️
+                </div>
+                <h3 class="text-lg font-bold text-white group-hover:text-amber-400 transition">الأدوات الذكية</h3>
+                <p class="text-xs text-gray-400 mt-2 leading-relaxed">فحص وتحليل الصور، توليد كلمات مرور معقدة، واختصار الروابط.</p>
+                <div class="mt-4 flex items-center text-xs font-bold text-amber-400 group-hover:translate-x-[-4px] transition">
+                    افتح الأدوات ←
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Interactive Workbench Panel -->
+        <div id="workbench" class="glass-panel p-8 rounded-3xl hidden transition-all duration-300">
+            
+            <!-- 1. PDF WORKBENCH -->
+            <div id="pdfWorkbench" class="hidden space-y-6">
+                <div class="border-b border-gray-800 pb-4 flex justify-between items-center">
+                    <h3 class="text-xl font-bold text-cyan-400 flex items-center gap-2">📄 حزمة أدوات الـ PDF الاحترافية</h3>
+                    <span class="text-xs text-gray-400">اختر العملية المطلوبة</span>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                    <button onclick="switchPdfTab('pdf_to_img')" id="tab_pdf_to_img" class="py-2.5 px-3 bg-cyan-500/20 border border-cyan-500/40 rounded-xl font-bold text-xs text-cyan-300">PDF ⬅️ صورة</button>
+                    <button onclick="switchPdfTab('img_to_pdf')" id="tab_img_to_pdf" class="py-2.5 px-3 bg-gray-900 border border-gray-800 rounded-xl font-bold text-xs text-gray-400">صورة ⬅️ PDF</button>
+                    <button onclick="switchPdfTab('merge')" id="tab_merge" class="py-2.5 px-3 bg-gray-900 border border-gray-800 rounded-xl font-bold text-xs text-gray-400">دمج ملفات PDF</button>
+                    <button onclick="switchPdfTab('split')" id="tab_split" class="py-2.5 px-3 bg-gray-900 border border-gray-800 rounded-xl font-bold text-xs text-gray-400">تقسيم واستخراج</button>
+                    <button onclick="switchPdfTab('protect')" id="tab_protect" class="py-2.5 px-3 bg-gray-900 border border-gray-800 rounded-xl font-bold text-xs text-gray-400">حماية وقفل PDF</button>
+                </div>
+
+                <div id="pdfFormArea" class="space-y-4 pt-2">
+                    <div id="singleFileInput">
+                        <label class="block text-xs font-medium text-gray-300 mb-2">اختر المستند/الصورة:</label>
+                        <input type="file" id="pdfSingleFile" class="w-full p-3 bg-gray-950/80 border border-gray-800 rounded-xl text-xs text-gray-300 focus:border-cyan-500 outline-none">
+                    </div>
+
+                    <div id="multiFileInput" class="hidden">
+                        <label class="block text-xs font-medium text-gray-300 mb-2">اختر ملفين أو أكثر لدمجهم:</label>
+                        <input type="file" id="pdfMultiFiles" multiple class="w-full p-3 bg-gray-950/80 border border-gray-800 rounded-xl text-xs text-gray-300 focus:border-cyan-500 outline-none">
+                    </div>
+
+                    <div id="splitPageInput" class="hidden">
+                        <label class="block text-xs font-medium text-gray-300 mb-2">رقم الصفحة المراد استخراجها:</label>
+                        <input type="number" id="splitPageNum" value="1" min="1" class="w-full p-3 bg-gray-950/80 border border-gray-800 rounded-xl text-xs text-gray-300 focus:border-cyan-500 outline-none">
+                    </div>
+
+                    <div id="protectPassInput" class="hidden">
+                        <label class="block text-xs font-medium text-gray-300 mb-2">كلمة سر التشفير للقفل:</label>
+                        <input type="password" id="pdfProtectPass" placeholder="أدخل كلمة مرور قوية..." class="w-full p-3 bg-gray-950/80 border border-gray-800 rounded-xl text-xs text-gray-300 focus:border-cyan-500 outline-none">
+                    </div>
+
+                    <button onclick="executePdfAction()" class="w-full py-3.5 btn-gradient font-bold rounded-xl text-xs transition duration-200">
+                        بدء المعالجة والتنفيذ 🚀
+                    </button>
+                </div>
+
+                <div id="pdfResult" class="hidden p-4 rounded-xl text-center text-xs space-y-3"></div>
+            </div>
+
+            <!-- 2. IMAGE WORKBENCH -->
+            <div id="imageWorkbench" class="hidden space-y-6">
+                <div class="border-b border-gray-800 pb-4 flex justify-between items-center">
+                    <h3 class="text-xl font-bold text-fuchsia-400 flex items-center gap-2">🎨 استوديو تحرير ومعالجة الصور</h3>
+                    <span class="text-xs text-gray-400">إضافة العلامة المائية تلقائياً</span>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-300 mb-2">اختر الصورة:</label>
+                        <input type="file" id="imgFile" accept="image/*" class="w-full p-3 bg-gray-950/80 border border-gray-800 rounded-xl text-xs text-gray-300">
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <button onclick="executeImgAction('compress')" class="py-3 bg-fuchsia-600/20 border border-fuchsia-500/30 text-fuchsia-300 hover:bg-fuchsia-600 hover:text-white rounded-xl font-bold text-xs transition">🗜️ ضغط الحجم</button>
+                        <button onclick="executeImgAction('grayscale')" class="py-3 bg-purple-600/20 border border-purple-500/30 text-purple-300 hover:bg-purple-600 hover:text-white rounded-xl font-bold text-xs transition">🔳 أبيض وأسود</button>
+                        <button onclick="executeImgAction('rotate')" class="py-3 bg-indigo-600/20 border border-indigo-500/30 text-indigo-300 hover:bg-indigo-600 hover:text-white rounded-xl font-bold text-xs transition">🔄 تدوير 90°</button>
+                        <button onclick="showFormatOptions()" class="py-3 bg-pink-600/20 border border-pink-500/30 text-pink-300 hover:bg-pink-600 hover:text-white rounded-xl font-bold text-xs transition">🔃 تحويل الصيغة</button>
+                    </div>
+
+                    <div id="formatBox" class="hidden space-y-2 p-3 bg-gray-900/50 rounded-xl border border-gray-800">
+                        <label class="block text-xs text-gray-300">اختر الصيغة المستهدفة:</label>
+                        <div class="flex gap-3">
+                            <select id="targetFormat" class="p-2 bg-gray-950 border border-gray-800 rounded-lg text-xs text-cyan-400 font-bold">
+                                <option value="png">PNG (جودة عالية)</option>
+                                <option value="jpg">JPG (مضغوط)</option>
+                                <option value="webp">WEBP (حديث للويب)</option>
+                            </select>
+                            <button onclick="executeImgAction('convert_format')" class="px-4 py-2 bg-fuchsia-500 hover:bg-fuchsia-600 text-white font-bold rounded-lg text-xs">تحويل الآن</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="imgResult" class="hidden p-4 rounded-xl text-center text-xs space-y-3"></div>
+            </div>
+
+            <!-- 3. QR WORKBENCH -->
+            <div id="qrWorkbench" class="hidden space-y-6">
+                <div class="border-b border-gray-800 pb-4">
+                    <h3 class="text-xl font-bold text-emerald-400">📱 توليد وصناعة أكواد الـ QR</h3>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-300 mb-2">أدخل النص أو الرابط المراد تحويله لـ QR:</label>
+                        <input type="text" id="qrText" placeholder="https://example.com أو أي نص تريد..." class="w-full p-3.5 bg-gray-950/80 border border-gray-800 rounded-xl text-xs text-gray-300 focus:border-emerald-500 outline-none">
+                    </div>
+
+                    <button onclick="executeQrAction()" class="w-full py-3.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold rounded-xl text-xs transition duration-200">
+                        توليد كود الـ QR الآن ⚡
+                    </button>
+                </div>
+
+                <div id="qrResult" class="hidden p-4 rounded-xl text-center text-xs space-y-3"></div>
+            </div>
+
+            <!-- 4. TOOLS WORKBENCH -->
+            <div id="toolsWorkbench" class="hidden space-y-6">
+                <div class="border-b border-gray-800 pb-4">
+                    <h3 class="text-xl font-bold text-amber-400">🛠️ الأدوات المساعدة والأمان</h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Inspect -->
+                    <div class="p-4 bg-gray-900/40 border border-gray-800 rounded-2xl space-y-3">
+                        <h4 class="font-bold text-xs text-amber-300">🔍 فحص وتحليل الصور</h4>
+                        <input type="file" id="inspectFile" accept="image/*" class="w-full p-2 bg-gray-950 border border-gray-800 rounded-lg text-[10px] text-gray-400">
+                        <button onclick="executeInspect()" class="w-full py-2 bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-lg font-bold text-xs hover:bg-amber-500 hover:text-black transition">بدء التحليل</button>
+                        <div id="inspectResult" class="hidden text-[11px] text-gray-300 font-mono whitespace-pre-line bg-gray-950 p-2 rounded-lg border border-gray-800"></div>
+                    </div>
+
+                    <!-- Password Generator -->
+                    <div class="p-4 bg-gray-900/40 border border-gray-800 rounded-2xl space-y-3">
+                        <h4 class="font-bold text-xs text-yellow-300">🔑 مولد كلمات المرور</h4>
+                        <input type="number" id="passLen" value="16" min="8" max="32" class="w-full p-2 bg-gray-950 border border-gray-800 rounded-lg text-xs text-gray-300">
+                        <button onclick="executePassword()" class="w-full py-2 bg-yellow-500/20 text-yellow-300 border border-yellow-500/30 rounded-lg font-bold text-xs hover:bg-yellow-500 hover:text-black transition">توليد كلمة سر</button>
+                        <div id="passResult" class="hidden text-xs font-mono text-yellow-400 select-all font-bold bg-gray-950 p-2 rounded-lg border border-gray-800 text-center"></div>
+                    </div>
+
+                    <!-- URL Shortener -->
+                    <div class="p-4 bg-gray-900/40 border border-gray-800 rounded-2xl space-y-3">
+                        <h4 class="font-bold text-xs text-indigo-300">🔗 اختصار الروابط</h4>
+                        <input type="url" id="longUrlInput" placeholder="https://..." class="w-full p-2 bg-gray-950 border border-gray-800 rounded-lg text-xs text-gray-300">
+                        <button onclick="executeShortener()" class="w-full py-2 bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded-lg font-bold text-xs hover:bg-indigo-500 hover:text-white transition">اختصار الرابط</button>
+                        <div id="shortResult" class="hidden text-xs font-mono text-indigo-300 select-all bg-gray-950 p-2 rounded-lg border border-gray-800 text-center"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        let currentPdfAction = 'pdf_to_img';
+
+        function openService(type) {
+            const bench = document.getElementById('workbench');
+            bench.classList.remove('hidden');
+
+            ['pdfWorkbench', 'imageWorkbench', 'qrWorkbench', 'toolsWorkbench'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+
+            document.getElementById(type + 'Workbench').classList.remove('hidden');
+            window.scrollTo({ top: bench.offsetTop - 30, behavior: 'smooth' });
+        }
+
+        function switchPdfTab(action) {
+            currentPdfAction = action;
+            const tabs = ['pdf_to_img', 'img_to_pdf', 'merge', 'split', 'protect'];
+            tabs.forEach(t => {
+                const btn = document.getElementById('tab_' + t);
+                if(t === action) {
+                    btn.className = "py-2.5 px-3 bg-cyan-500/20 border border-cyan-500/40 rounded-xl font-bold text-xs text-cyan-300";
+                } else {
+                    btn.className = "py-2.5 px-3 bg-gray-900 border border-gray-800 rounded-xl font-bold text-xs text-gray-400";
+                }
+            });
+
+            // Toggle Input Displays
+            document.getElementById('singleFileInput').style.display = (action === 'merge') ? 'none' : 'block';
+            document.getElementById('multiFileInput').style.display = (action === 'merge') ? 'block' : 'none';
+            document.getElementById('splitPageInput').style.display = (action === 'split') ? 'block' : 'none';
+            document.getElementById('protectPassInput').style.display = (action === 'protect') ? 'block' : 'none';
+        }
+
+        function renderResponse(resDiv, data, bgClass="bg-cyan-500/10 border-cyan-500/30 text-cyan-300") {
+            resDiv.className = `p-4 rounded-xl text-center text-xs space-y-3 border ${bgClass}`;
+            resDiv.innerHTML = '';
+            
+            const p = document.createElement('p');
+            p.innerText = data.message || data.error;
+            resDiv.appendChild(p);
+
+            if(data.download_url) {
+                const a = document.createElement('a');
+                a.href = data.download_url;
+                a.innerText = "⬇️ تحميل الملف الناتِج الآن";
+                a.className = "inline-block px-5 py-2.5 bg-white text-gray-950 font-bold rounded-xl text-xs hover:bg-gray-200 transition shadow-lg";
+                resDiv.appendChild(a);
+            }
+            resDiv.classList.remove('hidden');
+        }
+
+        async function executePdfAction() {
+            const formData = new FormData();
+            formData.append('action', currentPdfAction);
+
+            if(currentPdfAction === 'merge') {
+                const files = document.getElementById('pdfMultiFiles').files;
+                if(files.length < 2) return alert('يرجى تحديد ملفين PDF على الأقل للدمج!');
+                for(let f of files) formData.append('files', f);
+            } else {
+                const file = document.getElementById('pdfSingleFile').files[0];
+                if(!file) return alert('اختر الملف المطلوب أولاً!');
+                formData.append('file', file);
+            }
+
+            if(currentPdfAction === 'split') {
+                formData.append('page_num', document.getElementById('splitPageNum').value);
+            }
+            if(currentPdfAction === 'protect') {
+                formData.append('pdf_pass', document.getElementById('pdfProtectPass').value);
+            }
+
+            const resDiv = document.getElementById('pdfResult');
+            resDiv.innerText = "جاري تنفيذ العملية على مستندك... ⏳"; resDiv.classList.remove('hidden');
+
+            const res = await fetch('/api/pdf-tools', { method: 'POST', body: formData });
+            const data = await res.json();
+            renderResponse(resDiv, data, "bg-cyan-500/10 border-cyan-500/30 text-cyan-300");
+        }
+
+        function showFormatOptions() {
+            document.getElementById('formatBox').classList.toggle('hidden');
+        }
+
+        async function executeImgAction(action) {
+            const file = document.getElementById('imgFile').files[0];
+            if(!file) return alert('اختر الصورة المطلوب التعديل عليها!');
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('action', action);
+
+            if(action === 'convert_format') {
+                formData.append('target_format', document.getElementById('targetFormat').value);
+            }
+
+            const resDiv = document.getElementById('imgResult');
+            resDiv.innerText = "جاري تحرير ومعالجة الصورة... ⏳"; resDiv.classList.remove('hidden');
+
+            const res = await fetch('/api/image-tools', { method: 'POST', body: formData });
+            const data = await res.json();
+            renderResponse(resDiv, data, "bg-fuchsia-500/10 border-fuchsia-500/30 text-fuchsia-300");
+        }
+
+        async function executeQrAction() {
+            const text = document.getElementById('qrText').value;
+            if(!text) return alert('أدخل النص أو الرابط لتوليد الـ QR!');
+
+            const formData = new FormData();
+            formData.append('action', 'generate');
+            formData.append('qr_text', text);
+
+            const resDiv = document.getElementById('qrResult');
+            resDiv.innerText = "جاري إنشاء كود الـ QR... ⏳"; resDiv.classList.remove('hidden');
+
+            const res = await fetch('/api/qr-studio', { method: 'POST', body: formData });
+            const data = await res.json();
+            renderResponse(resDiv, data, "bg-emerald-500/10 border-emerald-500/30 text-emerald-300");
+        }
+
+        async function executeInspect() {
+            const file = document.getElementById('inspectFile').files[0];
+            if(!file) return alert('اختر صورة للفحص!');
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const resDiv = document.getElementById('inspectResult');
+            resDiv.innerText = "جاري تحليل الملف... ⏳"; resDiv.classList.remove('hidden');
+
+            const res = await fetch('/api/extract-text', { method: 'POST', body: formData });
+            const data = await res.json();
+            resDiv.innerText = data.text || data.message;
+        }
+
+        async function executePassword() {
+            const length = document.getElementById('passLen').value;
+            const formData = new FormData();
+            formData.append('length', length);
+            const res = await fetch('/api/generate-password', { method: 'POST', body: formData });
+            const data = await res.json();
+            const resDiv = document.getElementById('passResult');
+            resDiv.innerText = data.password;
+            resDiv.classList.remove('hidden');
+        }
+
+        async function executeShortener() {
+            const url = document.getElementById('longUrlInput').value;
+            if(!url) return alert('أدخل الرابط أولاً!');
+            const formData = new FormData();
+            formData.append('url', url);
+            const res = await fetch('/api/shorten-url', { method: 'POST', body: formData });
+            const data = await res.json();
+            const resDiv = document.getElementById('shortResult');
+            resDiv.innerText = data.short_url;
+            resDiv.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
