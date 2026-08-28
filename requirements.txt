@@ -1,0 +1,7 @@
+Flask
+qrcode
+Pillow
+gTTS
+pydub
+SpeechRecognition
+gunicorn
